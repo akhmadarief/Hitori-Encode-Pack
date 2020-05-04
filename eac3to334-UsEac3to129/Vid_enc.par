@@ -1,0 +1,22 @@
+[Encoders]
+x264.exe
+avs4x26x.exe
+xvid_encraw.exe
+
+[Extensions]
+mkv
+h265
+h264
+mp4
+avi
+
+[Text Editor]
+Notepad.exe
+
+[Presets]
+Default|--crf 18.0 --bframes 4 --ref 5 --trellis 2 --subme 8
+720_pass_1|--preset slow --pass 1 --bitrate 4000 --stats ".stats"
+720_pass_2|--preset slow --pass 2 --bitrate 4000 --stats ".stats"
+avi_pass_1|-pass1 -bitrate 2000 -max_bframes 1 -nopacked -turbo -notrellis
+avi_pass_2|-pass2 -bitrate 1770 -max_bframes 1 -nopacked -turbo -notrellis
+x265_def|--crf 20

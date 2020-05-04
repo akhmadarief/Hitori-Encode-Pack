@@ -1,0 +1,49 @@
+Changelog includes: v2.0.8
+--------
+• Fixed 3.Apply Patch-Windows.bat creation to look in correct directory for xdelta3 executable.  
+
+Changelog includes: v2.0.7
+--------
+• Now creates a shell script for all you Linux users so that patches can be applied.
+• Added @pause to end of 3.Apply Patch-Windows.bat so that outcome is visible.
+• Moved xdelta executables out of patch subdirectory to root for cross platform compatibility.
+• Cosmetic changes (version number now in title bar and relative files, updated tool tips).
+• Added icon to menu bar and task bar.
+
+Changelog includes: v2.0.6
+--------
+• Fixed the Drag and Drop feature to allow dropping whole folders.
+• Some bug fixes.
+
+Changelog includes: v2.0.5
+--------
+• Fix .zip creation
+• Imporved the "temp" directory name generation
+
+Changelog includes: v2.0.4
+--------
+• Drag and drop functionality.
+• Only have one instance of a cmd window when making a batch patch.
+
+Changelog includes: v2.0.2
+--------
+• xdelta3 source wildcard (so that any new version of xdelta can be placed in the root folder).
+• Added a new option where one could specify what patch extension they would like.
+
+Changelog includes: v2.0
+--------
+• Updated to use xdelta3 3.1.0 release.
+• Enabled secondary and higher source window size (results in smaller patch files).
+• Added xdelta3 arguments line for finer control. 
+• GUI now creates a empty changelog file (2.Changelog.txt) as well as patching instructions (1.Readme.txt).
+• Colour co-ordinated list boxes. 
+• Updated Folder browser to full featured version for Patch File Destination setting.
+• Set GUI to copy xdelta3 to patch sub directory by default.
+• Set default subdirectory to vcdiff as default for patch files.
+• Set patch files to have Old files file name
+• Set new extension for patch files to .vcdiff
+• Updated copyright date and version information.
+• Created custom logo
+• Updated Makepatch.bat section accordingly.
+• Added confirmation box after patch creation.
+• Run patch application in verbose mode

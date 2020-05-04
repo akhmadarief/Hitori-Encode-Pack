@@ -1,0 +1,509 @@
+UsEac3To v1.2.9 2018-06-12
+==========================
+Este método para usar eac3to lo he hecho para mi, sobre todo para probar las
+distintas opciones y parámetros, asi es que quizá sea extraño para los no
+familiarizados con la línea de comandos.
+
+Como muchos otros programas la ejecución final es el nombre del programa
+seguido de los parametros que, normalmente, un GUI (Graphical User Interface)
+se ha encargado de recoger de forma amigable.
+
+Esta GUI permite escribir directamente la línea de comandos a ejecutar, pero
+con unas cuantas ayudas que describiremos. Espero que aunque no resulte muy
+cómodo al menos sea didáctico.
+
+Instalación
+-----------
+El programa puede descomprimirse en cualquier carpeta y luego crear un acceso
+directo en el escritorio (botón derecho del ratón sobre UsEac3To.exe y:
+'Enviar a' -> 'Escritorio (crear acceso directo)'.
+Para evitar problemas de derechos de escritura (UAC) se recomienda usar una
+carpeta creada por el usuario, por ejemplo: C:\Portable\eac3to\UsEac3to
+
+Obviamente el programa necesita 'eac3to.exe' y, cuando se ejecuta por primera
+vez, pregunta por su localización (a no ser que pongamos UsEac3To.exe en la
+misma carpeta, o una subcarpeta, de eac3to.exe). Visitar:
+            http://forum.doom9.org/showthread.php?t=125966
+para obtener la versión más reciente de eac3to. Soportada eac3to v3.32
+Allí mismo hay otros enlaces a programas necesarios como:
+
+haali:      http://haali.su/mkv/
+mkvtoolnix: http://www.bunkus.org/videotools/mkvtoolnix
+ffmpeg      http://ffmpeg.zeranoe.com/builds/
+NeroAacEnc: https://www.videohelp.com/software/Nero-AAC-Codec
+
+y otros que me permito añadir por si os interesa:
+TsMuxer:    http://www.smlabs.net/tsmuxer_en.html
+DelayCut:   http://madshi.net/delaycut.rar
+Lame:       http://www.rarewares.org/
+Oggenc2:    http://www.rarewares.org/
+Oggdec::    http://www.rarewares.org/
+Faad:       http://www.rarewares.org/
+opusenc:    http://www.rarewares.org/ http://forum.doom9.org/showthread.php?t=168270
+wma2wav:    http://forum.doom9.org/showthread.php?p=1169827#post1169827
+ffdcaenc:   http://forum.doom9.org/showthread.php?p=1688150#post1688150
+qaac:       http://sites.google.com/site/qaacpage/home  http://forum.doom9.org/showthread.php?t=154233
+fhgaacenc:  http://github.com/tmkk/fhgaacenc/downloads  http://forum.doom9.org/showthread.php?t=161806
+BeSplit:    http://forum.doom9.org/showthread.php?p=609216#post609216
+(TwoLame:   innecesario, ahora usa ffmpeg para codificar MP2 v1.2.7)
+(aften:      http://code.google.com/p/wavtoac3encoder/downloads/list)
+Ya no usa Aften.exe como codificador externo a partir de v1.2.0.
+
+Algunas opciones pueden no funcionar sin ellos.
+
+Funcionamiento
+--------------
+La primera vez pregunta por eac3to, pero es recomendable ir a 'Settings' para
+informarle al programa de donde se encuentran:
+
+- MkvMerge (no necesario si se ha instalado en su carpeta por defecto)
+
+- TsMuxer (no necesario si se ha instalado en una subcarpeta de eac3to)
+
+- Carpeta con de/codificadores: cuando el programa necesita un de/codificador
+  lo busca 1º en la carpeta de UsEac3to, luego en esta carpeta y finalmente en
+  la de eac3to (si NeroAacEnc está con eac3to puede usarlo directamente)
+
+- Carpeta para archivos de salida: los archivos convertidos se guardan, por
+  defecto, en la misma carpeta que los originales, a no ser que seleccionemos
+  en 'Output Folder' -> 'User defined', entonces se guardan en la aquí definida
+
+Estas localizaciones se guardan en un archivo 'UsEac3to.ini' para no tener que
+volver a introducirlas en la siguiente ocasión.
+
+Al abrir ('File' -> 'Open...', 'Input File' o arrastrar y soltar) un archivo
+multimedia soportado, lo analiza y presenta información sobre él. El 'log' de
+eac3to puede editarse en esa ventana y guardarlo para documentar algún problema
+con la opción 'Save Log'.
+
+Se pueden abrir también carpetas con estructura de BD o HDDVD en cuyo caso, si
+encuentra más de una 'Feature' (peli y extras) permite elegir la deseada.
+Desde v1.2.7 y ea3to 3.32 se soportan UHD BD's y video HEVC.
+
+'+ Sources' añade archivos de la carpeta con la misma extensión y correlativos.
+Típico para fuentes .vob, .ts y .m2ts. Permite concatenar audios ac3/dts.
+
+Parámetros Globales
+-------------------
+Con la información en pantalla estamos en disposición de elegir que queremos.
+Si deseamos una extracción de todas las pistas, con 'demux' en 'Global parameter'
+no tenemos más que pulsar al 'RUN' y dejar trabajar a eac3to.
+Recomendado el uso de la carpeta personalizada de salida.
+
+Pista de origen y Formato de salida
+-----------------------------------
+Pero lo normal será que deseemos la transformación de una o más pistas.
+Empezaremos eligiendo la 'Track Input' y el 'Output format' deseado. Cuando
+un formato aparece con el sufijo '-ext', por ejemplo 'mp3-ext' es que se
+necesita un codificador externo a eac3to, en este caso 'lame.exe'.
+
+Una vez elegida pista y formato pulsando 'Add' se incorpora a nuestra linea
+de comandos unos parámetros de este tipo:
+2: %_eng2.ac3
+lo que significa que la pista 2 se extraerá o convertirá a formato ac3 con el
+nombre del archivo origen (representado por el carácter '%', en la carpeta
+original o en la 'User defined') y el sufijo '_eng2' para indicar la pista
+origen. El sufijo de lenguaje se ha añadido en v0.9.2.
+
+Este método permite ver la linea de comandos abreviada (sin extensos nombres)
+
+Parámetros
+----------
+A continuación se pueden añadir tantos parámetros como se desee y las listas
+'Frequent parameters' y 'More parameters' son un recordatorio de la sintáxis
+pero explicarlos queda fuera de lugar aquí.
+Algunos párametros como el bitrate o la calidad necesitaran ser escritos
+explícitamente, y cuando se usen codificadores externos se deberán conocer
+los parámetros que admiten.
+En v0.7 se incluye un Help de eac3to con alguna info sobre los parámetros.
+
+La v0.6 admite el uso de varios programas externos enlazados (pipe).
+Ejemplo para un downmix estéreo simple:
+ stdout.wav | sox --ignore-length - -t wav - remix -m 1v0.3694,3v0.2612,5v0.3694 2v0.3694,3v0.2612,6v0.3694 norm | Lame -b 128 - %_.mp3
+
+Más de una pista
+----------------
+No hay límite al número de pistas que pueden ser extraidas/convertidas a la
+vez salvo si se usa un codificador externo. Por la construcción del comando
+solo puede usarse uno a la vez y debe estar en la última posición. Ejemplo:
+
+ 4: %_4.ac3 3: stdout.wav -down2 | OggEnc2 -q 3 --ignorelength -o %_3.ogg -
+
+La pista 4 se extrae/convierte a ac3 y la pista 3 se convierte a estéreo y se
+codifica en ogg.
+
+Ejecutar la línea de comandos
+-----------------------------
+Una vez hayamos conseguido la línea de comandos deseada, recordemos que se
+puede editar su contenido o borrarlo con 'Clear Command Line', no queda más que
+ejecutar eac3to con 'RUN Command Line'. Se abrirá una ventana con el progreso
+de la ejecución que al acabar se transferirá a nuestra ventana interna de info.
+
+Cola de trabajos
+----------------
+En v0.9.2 se ha añadido una sencilla cola de trabajos a ejecutar.
+
+Pulsando el nuevo botón 'EnQueue' en vez de 'RUN CL' se almacena el trabajo en
+un archivo (...\UsEac3to\zzJob_1.cmd) sin ejecutarlo todavía.
+Si la línea de comandos esta vacía da una lista de los Job's pendientes.
+
+Cuando pulsemos 'Run Que.' se ejecutan los Job's en el orden lógico 1..9,A..Z
+Es posible editar, borrar o renumerar esos archivos antes de mandar ejecutarlos.
+
+Como complemento se ha habilitado la posibilidad de apagar el PC al acabar la cola.
+En 'Settings' hay una nueva opción para ello 'Shutdown at finish' -> 'Enabled'.
+Funciona también con 'RUN CL' pero ni la cola ni el 'Shutdown' están disponibles
+para las Herramientas Auxiliares.
+
+
+Herramientas auxiliares
+=======================
+Se presentan algunas herramientas complementarias a eac3to, quizá algunas sean
+incorporadas en próximas revisiones pero en este momento pueden ser útiles.
+
+MkvExtract/INF
+--------------
+Modificado en v1.2.8 para soportar MkvToolNix v17.0.0
+
+1) Si el archivo de entrada es un mkv funciona como una MkvExtractGUI:
+
+Permite extracción de Pistas, TimeStamps, Capítulos y Adjuntos de una vez.
+
+Complementa la extracción de pistas no soportadas por eac3to (Xvid y otros
+vídeos, Vorbis y otros audios, VobSub y otros subs).
+O que presentan problemas con la actual versión de eac3to (h265, EAC3, SUP)
+
+Usar 'Add' para incluir en el job cualquier opción antes de 'Run/EnQueue'.
+Para cancelar matar la ventana y reabrirla si se desea.
+Muestra un cuadro (no editable) para recordar las opciones seleccionadas.
+Con el cuadro vacío se obtiene un Informe del mkv (tags).
+
+En v1.2.0 se pueden pedir todos los ATT (adjuntos) y SUP de una vez.
+
+2) Si no es un mkv se pide un informe a ffmpeg y muestra las pistas presentes:
+Nuevo en v1.2.5
+
+Podemos extraer las pistas de audio con un "-acodec copy" de ffmpeg.
+Con otras pistas puede funcionar o no, Puede que cambiando la extensión de salida
+o incluyendo otros parámatros sustituyendo a "-acodec copy"
+
+A/V Recode
+----------
+Si abrimos un archivo, por ejemplo .avs, eac3to lanzará un mensaje:
+"The format of the source file could not be detected.  <ERROR>"
+y 'Output format' mostrará 'A.Tools' indicando que puede haber una herramienta
+auxiliar capaz de hacer algo más que eac3to simplemente.
+
+Si pulsamos 'A/V Recode' con un .avs cargado se abrirá la ventana 'Video Recode',
+con cualquier otro archivo se abrirá 'Audio Recode'
+
+- Audio Recode:
+
+El comportamiento de esta herramienta ha cambiado en varias versiones.
+Como pretende ser un complemento a eac3to se basa siempre en programas externos.
+UsEac3to busca programas externos en carpetas en el orden definido en Funcionamiento.
+
+Nuevo en v1.2.4: Si el archivo de entrada es un wav con el nombre acabado en el sufijo 'L',
+por ejemplo "xL.wav", busca en la misma carpeta posibles archivos con sufijos xR.wav, xC.wav,
+xLFE.wav, etc. (los mismos sufijos generados por eac3to).
+Si encuentra al menos dos ofrece la posibilidad usar la mezcla como entrada para
+el resto de opciones.
+
+Si sabemos que la entrada es un dtswav puede obtenerse un DTS estandard con:
+BeSplit -core( -type dtswav -fix )    [si encuentra BeSplit]
+
+Desde la v1.2.9 es posible forzar el uso de ffmpeg como decodificador en culaquier caso.
+Para ello en el cuadro de diálogo que se abre seleccionar en map:X un valor mayor que 0:
+1 para un audio suelto o el primer audio de un contenedor
+o el adecuado si no es el primer audio del contenedor (MkvExtract/INF puede ayudar).
+
+Usar ffmpeg como decodificador nos permite usar muchos filtros de audio, por ejemplo:
+
+Downmix:  -af "pan=stereo|FL<FC+0.70*FL+0.30*SL|FR<FC+0.70*FR+0.30*SR"  [u otro]
+Resample: -af aresample=48000
+Speedup:  -af atempo=1.042708   [23.976->25], 1.041667 [24->25], 1.001 [23.976->24]
+Slowdown: -af atempo=0.959041   [25->23.976], 0.96 [25->24], 0.999001 [24->23.976]
+Delay:    -af adelay=1500|0|500|0|500|500     [un delay por cada canal]
+Trim:     -filter_complex "[0]atrim=2:8[a];[0]atrim=12:18[b];[a][b]concat=n=2:v=0:a=1"
+
+Y otros, ver docs en https://www.ffmpeg.org/ffmpeg-filters.html#Audio-Filters
+El filtro hay que colocarlo en la COMMAND LINE PARAMETERS y activarla con 'Add to DEC'
+
+Alternativamente (map:X = 0) se buscan decodificadores dedicados a cada formato.
+Los decodificadores disponibles son:
+
+ENTRADA  DECODIFIC.  PARAMETROS por defecto
+-------  ----------  ----------------------
+ogg      oggdec      -b 3
+wma|wmv  wma2wav
+mp2|mp3  lame        --decode
+opus     opusdec
+m4a|mp4  NeroAacDec
+aac|m4a  qaac        -D -b 24
+aac|m4a  faad        -b 2
+otras    ffmpeg      -vn -acodec pcm_s24le
+
+Notas:
+- Los parámetros para INPUT y OUTPUT o STDOUT se ponen automáticamente
+- Los parámetros intentan salida a 24 bits int, pueden cambiarse con 'Add to DEC' o 'ReplaceDEC'
+- Si la entrada es un contenedor decodifica el primer audio o el ffmpeg map.
+
+Como salida podemos obtener un WAV o W64 descomprimido (Decode Only) o
+seleccionar los codificadores que pueden usarse:
+
+SALIDA  CODIFICADOR  PARAMETROS por defecto
+------  -----------  ---------------------------------------------------------
+ w64    ffmpeg       -vn|-map 0:MAP -acodec pcm_s24le
+ ac3    ffmpeg       -vn|-map 0:MAP -acodec ac3 -center_mixlev 0.707 -ab CBRk
+ eac3   ffmpeg       -vn|-map 0:MAP -acodec eac3 -center_mixlev 0.707 -ab CBRk
+ mp2    ffmpeg       -vn|-map 0:MAP -acodec mp2 -ab CBRk
+ aac    qaac         -V TVBR|-v CVBR --ignorelength --adts --no-delay
+ mp3    Lame         -b CBR|-V QUA
+ opus   opusenc      --bitrate CBR --ignorelength
+ ogg    OggEnc2      -q QUA --ignorelength
+ m4a    NeroAacEnc   -q QUA -ignorelength
+ m4a    fhgaacenc    --vbr QUA|--cbr CBR --ignorelength
+ dts    ffdcaenc     -l -b CBR
+
+Notas:
+- Los parámetros para OUTPUT e INPUT o STDIN se ponen automáticamente.
+- Opciones de parámetros (separados por '|') y CBR,QUA,VBR seleccionados en diálogo.
+- Podemos incluir parámetros para el codificador en COMMAND LINE PARAMETERS
+  (antes de pulsar 'A/V Recode') con 'Add to ENC' a los defectos listados arriba, o
+  'ReplaceENC' para reemplazarlos. Se necesita conocer la sintáxis de los codificadores.
+
+Ejemplo:
+
+Tenemos un mkv con una segunda pista de audio:
+3: EAC3, English, 5.1 channels, 48kHz, 678ms
+y la queremos recodificar a AC3 aplicando el delay
+
+1) Teclear en COMMAND LINE PARAMETERS: -af "adelay=678|678|678|678|678|678"
+2) Pulsar 'A/V Recode'
+3) Seleccionar el bitrate deseado para AC3
+4) Seleccionar en 'ffmpeg map' la pista 2 (la 0 es el video)
+5) Seleccionar en 'Use Commad Line Parameters' 'Add to DEC'
+6) 'Run' o 'EnQueue' el trabajo
+
+
+- Video Recode:
+
+A petición de un usuario me he decidido a incorporar una ayuda a la codificación
+de video por línea de comandos. Algunas GUI's existentes pueden no funcionar
+correctamente por un exceso de análisis, aquí se ofrece una ayuda muy simple.
+
+En la ventana que se abre se ofrece la posibilidad de editar el .avs, seleccionar
+el codificador (x264 de 32 o 64 bits, y XviD), archivo de salida y parámetros de
+codificación.
+
+En v1.1.4 se soporta wavi.exe para codificar audio con una fuente de audio .avs.
+Ver ejemplos de codificadores y rutas en el Vid_enc.par posterior
+
+En v1.2.4 se permite x265 con avs4x26x.exe o avs4x265.exe
+
+No obstante el método está dirigido a usuarios expertos para simplificar tareas
+repetitivas y no como ayuda a usuarios nuevos. El motivo es que se debe configurar
+un archivo (Vid_enc.par) con rutas y preferencias específicas de cada usuario que
+UsEac3to debe leer, por ejemplo:
+
+[Encoders]
+C:\Portable\MeGui\tools\x264\x264.exe
+C:\Portable\Megui\tools\x264\avs4x26x.exe --x26x-binary C:\Portable\megui\tools\x264\x264.exe
+C:\Portable\Megui\tools\x264_10b\avs4x264mod.exe --x26x-binary C:\Portable\megui\tools\x264_10b\x264-10b_64.exe
+C:\Portable\MeGui\tools\x265\avs4x26x.exe --x26x-binary C:\Portable\megui\tools\x265\x64\x265.exe
+C:\Portable\MeGui\tools\xvid_encraw\xvid_encraw.exe
+C:\Portable\Audio\wavi.exe
+
+[Extensions]
+mkv
+h265
+h264
+mp4
+avi
+ac3
+mp3
+
+[Text Editor]
+Notepad.exe
+
+[Presets]
+Defecto|--crf 18.0 --bframes 4 --ref 5 --trellis 2 --subme 8
+x265_def|--crf 20
+720_pass_1|--preset slow --pass 1 --bitrate 4000 --stats ".stats"
+720_pass_2|--preset slow --pass 2 --bitrate 4000 --stats ".stats"
+avi_pass_1|-pass1 -bitrate 2000 -threads 2 -max_bframes 1
+avi_pass_2|-pass2 -bitrate 1770 -threads 2 -max_bframes 1
+Aften|- | "C:\Portable\Audio\Aften.exe" -b 640 -pad 0 -readtoeof 1 -exps 32 -s 1 -xbsi2 1 -dsurexmod 2
+Lame|- | "C:\Portable\Audio\Lame.exe" -b 128
+...
+
+La primera vez hay que pulsar 'Presets Edit' y modificar el archivo Vid_enc.par
+
+SRT/.../TRIM
+------------
+A partir de v1.2.3 se incluye un nueva función dependiendo del archivo de entrada.
+Para archivos de texto queda como antes:
+
+1) Archivos tipo texto SRT/SSA/ASS/TXT/XML/CUE
+
+Aunque la conversión de formatos de subtítulos queda fuera del alcance de este
+programa se ha incluido aqui una sencilla utilidad para desplazar y reescalar
+los tiempos de los subtítulos (basados en texto) más comunes: SRT,ASS y SSA.
+Desde la v0.3 tambien modifica TXT de capitulos.
+Desde la v0.6 también capítulos en XML y archivos .cue
+
+Recordar que a veces los subtítulos no son reconocidos por el juego de caracteres
+en que está el texto (UTF-8, ANSI, Unicode), y que puede modificarse usando el
+Block de Notas.
+
+Desde v1.1.9 Puede procesar todos los archivos del mismo tipo en la carpeta.
+Desde v1.2.3 se puede incluir un offset al delay.
+
+2) Archivos de audio AC3/DTS/MP3/MP2/WAV/AAC/M4A/FLAC/OPUS/OGG/W64
+
+Esta herramienta permite cortar audios en base al Trim contenido en un .avs.
+Pregunta por un posible archivo de timecodes para considerarlo en vez del fps del
+vídeo si se trata de un VFR.
+
+Genera un .mka que contendrá el audio cortado.
+El .bat ejecutado no se borra y contiene información de los cortes.
+
+Si se ha seleccionado un timecodes se genera el nuevo timecodes a aplicar al vídeo.
+http://www.mundodivx.org/foro/index.php?topic=43613.0
+
+3) Archivos avs
+
+Versión simplificada del caso anterior para usar la info, contenida en el .bat
+ficticio generado, en la edición manual del audio.
+O bien para generar el nuevo timecodes para vídeos VFR.
+
+MkvMergeGUI
+-----------
+No es más que un enlace a ese programa para que efectuemos con él las mezclas
+de video, audio y subtítulos una vez dispongamos de todos los componentes.
+Creo que es supérfluo intentar reproducir todas las variantes cuando ya hay
+un programa que lo hace.
+En v1.1.8 llama a mkvtoolnix-gui.exe, si existe, si no a mmg.exe.
+
+TsMuxerGUI
+----------
+El mismo comentario que para MkvMergeGUI.
+
+DelayCut
+--------
+Un enlace a ese programa para reparar alguna pista problemática.
+
+Ejecutar y MkvMux
+-----------------
+Estas dos últimas herramientas son más bien un intento de automatizar el proceso
+de extracción, modificación y mezcla en una sola tecla. El inconveniente es
+que solo funciona para unas condiciones muy concretas.
+
+Si el fichero de entrada es un mkv con un video(1), varios audios (2,3,4,..) y
+subtítulos (7,8,9) y construimos una linea de comandos:
+
+ 3: %_3.ac3 4: %_4.ac3 -448
+
+y pulsamos 'Run and MkvMux' se extrerá/convertirá la pista 3 de audio a ac3,
+lo mismo con la pista 4 convirtiéndola a 448 Kb/s.
+Y a continuación se enviará el mkv original a MkvMerge para que elimine todos
+los audios (los subtítulos/capítulos permanecen) y le añada los audios convertidos.
+Típico para conversión de pistas DTS/FLAC/... a estandard AC3
+
+Si utilizamos la línea:
+
+ 1: %_1.mkv -speedup 3: %_3.ac3 -speedup 4: %_4.ac3 -speedup -448
+
+trás pulsar 'Run and MkvMux' se extraerá el video a un nuevo mkv cambiando el
+fps (se supone que era 23.976) a 25, los audios se acortan y convierten para
+luego mezclarse con el nuevo mkv que tiene solo el video. Los subtítulos se
+pierden en este proceso, en este caso no importa ya que estarían desincronizados.
+Tipico para conversiones de fps.
+
+Se puede usar solo un audio, pero si se seleccionaran tres o más solo el primero
+y el último se mezclarían en el mkv final.
+
+Nuevo en v0.7.41 pistas de audio sin compresión.
+Nuevo en v0.7.42 todas las pistas sin compresión.
+Nuevo en v0.8.1 ya funciona con audio m4a (es un contenedor no audio simple)
+En v0.9.0 se corrige el orden de pistas de video,subs,audio a video,audio,subs.
+En v 1.2.0 es posible enviar a cola estos trabajos.
+
+Ejecutar y TsMux
+----------------
+Similar al anterior pero con las siguientes variantes:
+
+- El archivo de salida es uno o más .m2ts (da la opción de partirlo en trozos
+  de menos de 4GB para compatibilidad FAT32)
+- Solo se selecciona el primer video del mkv original aunque no se extraiga
+  explicitamente por tanto los subtítulos se pierden siempre.
+
+Típico para convertir un mkv para reproducción en PS3 con disco externo.
+
+Changelog
+=========
+- v1.2.9 2018-06-12 Corregidos bugs y mejora A/V Recode.
+- v1.2.8 2017-10-16 Soporta MkvToolNix v17.0.0. Nueva MkvExtractGUI.
+- v1.2.7 2017-10-12 Soporta eac3to v3.32 (UHD BD's y HEVC)
+                    Fuerza lectura archivos de texto como ANSI.
+                    TwoLame reemplazado por ffmpeg para codificar MP2.
+- v1.2.6 2017-06-19 Bug fix: Autoit v3.3.14.2 graba archivos por defecto en UTF-8
+                             Antes los grababa como ANSI. Corregido.
+- v1.2.5 2017-06-15 Audio recode: el decodificador admite cambio de parámetros.
+                    INF: informe ffmpeg de pistas de cualquier contenedor.
+                    Puede extraer pistas de audio.
+- v1.2.4 2017-06-10 Video recode: soporta x265 usando avs4x26x.exe
+                    Audio recode: Decodifica a W64 (siempre con ffmpeg) o a WAV.
+                    Codifica a EAC3 (ffmpeg), bitrate con prefijo 'E'
+                    Mezcla mono-canales WAV con sufijos L,R,C,LFE,...
+- v1.2.3 2017-05-21 El exe (o su enlace) acepta Arrastrar y Soltar.
+                    Extrae Info de mkv's.
+                    Audio Recode usa ffmpeg si no encuentra decodificador.
+                    Corta audios en base a Trim's de .avs
+                    Acepta offset en desplazamientos de srt's, ass, etc.
+- v1.2.2 2016-10-02 Incluido -drc_scale 0 a ffmpeg (decodificando AC3 o E-AC3)
+- v1.2.1 2016-09-15 Mejorado 'A/V Recode':
+                    Incluido ffmpeg MAP para seleccionar pista en contenedor.
+                    Es posible modificar parámetros de codificación.
+- v1.2.0 2016-08-05 Aften.exe reemplazado por ffmpeg.exe. Ver Audio recode.
+                    Incluido Opus encoder y BeSplit para dtswav.
+                    Enviar a cola trabajos Run and MkvMux
+                    Modificadas opciones de MkvExtract (all ATT o SUP)
+- v1.1.9 2015-12-12 SRT/.../TXT Ahora puede procesar todos los archivos del
+                    mismo tipo en la carpeta.
+- v1.1.8 2015-11-02 Soporte para codificador externo ffmpeg.
+                    MkvToolNix-GUI en vez de MkvMergeGUI
+                    Bug menor (features) y defectos.
+- v1.1.7 2015-06-02 MkvMux: si un audio es thd+ac3 se mezclan las dos pistas.
+                    Trim de timecodes.txt para VFR.
+- v1.1.6 2015-03-31 Nuevos parametros -dcadec, -arcsoft y OpusEnc
+- v1.1.5 2015-03-10 Bug al pulsar Cancel al seleccionar feature
+- v1.1.4 2014-11-09 Soporte para wavi.exe
+- v1.1.2 2104-09-12 Posibilidad de extraer archivos adjuntos en mkv.
+                    ffdcaenc reemplaza a dcaenc.
+                    Resueltos algunos problemas menores.
+- v1.1.1 2013-12-13 Solucionado bug XviD modo -cq.
+- v1.1.0 2013-12-08 Añadido Video Recode.
+- v1.0.0 2013-01-05 Adaptado a eac3to v3.26. Cambios menores.
+- v0.9.3b 2012-10-19 Permite enviar .mka a mkvextract
+                    Vuelme a funcionar MkvMux con audio m4a
+- v0.9.2 2012-05-10 Añadido sistema de cola y shutdown.
+                    Soporte para dcaenc, qaac y fghaacenc.
+                    Añadido lenguaje en nombres de pistas y alguna mejora menor.
+- v0.9.0 2011-10-18 'Decode Ogg/mpx' cambiado a 'Recode Audio' complementa a eac3to.
+                   Mejorado el control de pistas mkv cuando no coincide el orden.
+                   Se debe cerrar las ventanas de comandos para permitir ver posibles errores
+- v0.8.1 2011-04-27 MkvMux ya funciona con audio m4a (es un contenedor no audio simple)
+- v0.8  2010-11-29 'Output format' solo muestra opciones posibles de 'Track Input'
+                   Si muestra 'A.Tools' solo 'Auxiliary Tools' pueden manejarla.
+                   Ejemplo: Xvid en mkv, Vobsub en mkv, ogg, srt, ... sueltos.
+                   Mejor soporte de .mpls.
+- v0.7.42 2010-07-29 Opcióon para remezcla sin compresión de ninguna pista
+- v0.7.41 2010-07-28 Opcióon para remezcla sin compresión de audio
+- v0.7  2010-05-25 Help de eac3to, Track input relleno con audio solo, Settings mejorado.
+- v0.6  2010-03-06 Linea de comandos admite más de un 'pipe'
+                   Decodifica también con NeroAacDec y Lame
+                   Cambia tiempos también en XML y CUE
+- v0.5e 2010-02-14 Opciones en MkvExtract y Run_and_TsMux
+- v0.4e 2009-10-12 menos ocupaci¢n de CPU, -progressnumbers y 'User Defined' carpeta seleccionada por defecto
+- v0.3e 2009-03-15 apaño para aceptar acentos, ñ's, etc (ANSI -> OEM ASCII en cmd's)
